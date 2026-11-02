@@ -52,42 +52,29 @@
           touchControls: false,
           gyroControls: false,
         });
+
         const minChaos = 0.5;
-        const maxChaos = 10;
+        const maxChaos = 5.5,
 
-        let currentChaos= minChaos;
-        let targetChaos=minChaos;
-        
-        let lastX = null;
-        let lastY = null;
-        let lastTime = null;
-        let lastMovement = 0;
-
-        window.addEventListener("pointermove", (event) => {
-        const now = performance.now;
-
-        if (lastTime!==null) {
-            const dx = event.clientX-lastX;
-            const dy = event.clientY-lastY;
-            const dt = Math.max(now-lastTime, 1);
-            
-            const speed = Math.hypot(dx,dy)/dt;
-
-            targetChaos = Math.min(maxChaos, minChaos+speed*5);
-        }
-
-        lastX = event.clientX;
-        lastY = event.clientY;
-        lastTime = now;
-        lastMovement = now;
-    });
-
+        let currentChaos = minChaos;
+        let targetChaos = minChaos;
+        let lastMovement = performance.now();
+<--! Detect mouse movement -->
+        window.addEventListener("pointermove", () => {
+            targetChaos = maxChaos;
+            lastMovement = performance.now();
+        });
+<--! Smoothly update chaos -->
     function animate () {
-        if (performance.now() - lastMovement > 220) {
+         
+        <!--Return to calm when the mouse stops-->
+        if (performance.now() - lastMovement > 150) {
             targetChaos=minChaos;
         }
-        const smoothing = targetChaos > currentChaos ? 0.16 : 0.035;
+        <--! Faster perturbation, slower recovery -->
+        const smoothing = targetChaos > currentChaos ? 0.2 : 0.03;
         currentChaos += (targetChaos - currentChaos) * smoothing;
+         <--! Update Vanta-->
         if (Math.abs(currentChaos - effect.options.chaos) > 0.01) {
             effect.setOptions({ chaos: currentChaos});
         }
