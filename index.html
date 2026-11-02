@@ -59,22 +59,16 @@
         let currentChaos = minChaos;
         let targetChaos = minChaos;
         let lastMovement = performance.now();
-<--! Detect mouse movement -->
         window.addEventListener("pointermove", () => {
             targetChaos = maxChaos;
             lastMovement = performance.now();
         });
-<--! Smoothly update chaos -->
     function animate () {
-         
-        <!--Return to calm when the mouse stops-->
         if (performance.now() - lastMovement > 150) {
             targetChaos=minChaos;
         }
-        <--! Faster perturbation, slower recovery -->
         const smoothing = targetChaos > currentChaos ? 0.2 : 0.03;
         currentChaos += (targetChaos - currentChaos) * smoothing;
-         <--! Update Vanta-->
         if (Math.abs(currentChaos - effect.options.chaos) > 0.01) {
             effect.setOptions({ chaos: currentChaos});
         }
