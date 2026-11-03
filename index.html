@@ -95,7 +95,7 @@
         function animate (){
             currentChaos += (targetChaos-currentChaos)*0.03;
 
-        if (Math.abs(currentChaos - effect.option.chaos)>0.001) {
+        if (Math.abs(currentChaos - effect.options.chaos)>0.001) {
             effect.setOptions({chaos: currentChaos});
         }
         requestAnimationFrame(animate);
