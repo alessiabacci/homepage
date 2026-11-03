@@ -80,18 +80,13 @@
           gyroControls: false,
         });
         const button = document.getElementBy("btn");
-
-        const minChaos = 0.5;
-        const maxChaos = 5.5;
-
-        let currentChaos = maxChaos;
-        let targetChaos = maxChaos;
-
-        button.addEventListener ("mouseenter", function (){
-            targetChaos=minChaos;
+        button.addEventListener("mouseenter", function () {
+            effect.setOptions({chaos: 0.5});
+            console.log("Mouse sopra il pulsante:", effect.options.chaos);
         });
-        button.addEventListener ("mouseleave", function(){
-            targetChaos=maxChaos;
+        button.addEventListener("mouseleave", function () {
+            effect.setOptions({chaos: 5.5});
+            console.log("Mouse fuori il pulsante:", effect.options.chaos);
         });
         function animate () {
             currentChaos += (targetChaos - currentChaos)*0.05;
