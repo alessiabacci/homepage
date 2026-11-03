@@ -74,32 +74,31 @@
           backgroundColor: 0x222426,
           color: 0x98465f,
           spacing: 7,
-          chaos: 0.5,
+          chaos: 5.5,
           mouseControls: false,
           touchControls: false,
           gyroControls: false,
         });
+        const button = document.getElementBy("btn");
 
         const minChaos = 0.5;
         const maxChaos = 5.5;
 
-        let currentChaos = minChaos;
-        let targetChaos = minChaos;
-        let lastMovement = performance.now();
-        window.addEventListener("pointermove", () => {
-            targetChaos = maxChaos;
-            lastMovement = performance.now();
-        });
-    function animate () {
-        if (performance.now() - lastMovement > 100) {
+        let currentChaos = maxChaos;
+        let targetChaos = maxChaos;
+
+        button.addEventListener ("mouseenter", function (){
             targetChaos=minChaos;
+        });
+        button.addEventListener ("mouseleave", function(){
+            targetChaos=maxChaos;
+        });
+        function animate () {
+            currentChaos += (targetChaos - currentChaos)*0.05;
+        if (Math.abs(currentChaos-targetChaos)>0.001) {
+            effect.setOptions({chaos:currentChaos});
         }
-        const smoothing = targetChaos > currentChaos ? 0.2 : 0.03;
-        currentChaos += (targetChaos - currentChaos) * smoothing;
-        if (Math.abs(currentChaos - effect.options.chaos) > 0.01) {
-            effect.setOptions({ chaos: currentChaos});
-        }
-        requestAnimationFrame (animate);
+        requestAnimationFrame(animate);
         }
         animate();
         </script>
