@@ -79,7 +79,7 @@
           touchControls: false,
           gyroControls: false,
         });
-        const button = document.getElementBy("btn");
+        const button = document.getElementById("btn");
         button.addEventListener("mouseenter", function () {
             effect.setOptions({chaos: 0.5});
             console.log("Mouse sopra il pulsante:", effect.options.chaos);
