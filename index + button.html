@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Oh WOW! My first hero page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.trunk.min.js"></script>
+    <style>
+        body {
+            margin:0
+            font-family: Arial, sans-serif;
+        }
+        #hero {
+            height: 100vh;
+            background-color:#222426;
+            color: palevioletred;
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            text-align:center;
+            justify-content: center;
+        }
+        #hero h1 {
+            position: relative;
+            z-index:1;
+            font-size: clamp(32px, 6vw, 80px);
+            margin : 0;
+        }
+        #hero h2 {
+            position: relative;
+            z-index:1;
+            font-size: clamp(18px, 6vw, 32px);
+            margin-top : 16px;
+        }
+        #btn {
+            background-color: salmon;
+            color:blueviolet;
+            position: relative;
+            z-index:1;
+            border-radius:50%;
+            width:110px;
+            height:110px;
+            border:4px solid blueviolet;
+            cursor:pointer;
+            transition:transform 0.3s ease; background-color 0.3s ease;
+        }
+        #btn:hover{
+            trasnform: scale(1.1);
+            background-color:brown;
+        }
+    </style>
+  </head>
+
+    <body>
+      <section id="hero">
+        <h1>Hello there, I'm Alessia.</h1>
+        <h2>You are just looking at my very first hero page</h2>
+        <button id="btn">NOT YET</button>
+      </section>
+
+      <script>
+        const effect = VANTA.TRUNK({
+          el: "#hero",
+          backgroundColor: 0x222426,
+          color: 0x98465f,
+          spacing: 7,
+          chaos: 0.5,
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: false,
+        });
+
+        const minChaos = 0.5;
+        const maxChaos = 5.5;
+
+        let currentChaos = minChaos;
+        let targetChaos = minChaos;
+        let lastMovement = performance.now();
+        window.addEventListener("pointermove", () => {
+            targetChaos = maxChaos;
+            lastMovement = performance.now();
+        });
+    function animate () {
+        if (performance.now() - lastMovement > 100) {
+            targetChaos=minChaos;
+        }
+        const smoothing = targetChaos > currentChaos ? 0.2 : 0.03;
+        currentChaos += (targetChaos - currentChaos) * smoothing;
+        if (Math.abs(currentChaos - effect.options.chaos) > 0.01) {
+            effect.setOptions({ chaos: currentChaos});
+        }
+        requestAnimationFrame (animate);
+        }
+        animate();
+        </script>
+    </body>
+  </head>
+</html>
+
