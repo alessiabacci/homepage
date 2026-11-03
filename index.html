@@ -32,6 +32,22 @@
             font-size: clamp(18px, 6vw, 32px);
             margin-top : 16px;
         }
+        #btn {
+            background-color: salmon;
+            color:blueviolet;
+            position: relative;
+            z-index:1;
+            border-radius:50%;
+            width:110px;
+            height:110px;
+            border:4px solid blueviolet;
+            cursor:pointer;
+            transition:transform 0.3s ease; background-color 0.3s ease;
+        }
+        #btn:hover{
+            trasnform: scale(1.1);
+            background-color:brown;
+        }
     </style>
   </head>
 
@@ -39,6 +55,7 @@
       <section id="hero">
         <h1>Hello there, I'm Alessia.</h1>
         <h2>You are just looking at my very first hero page</h2>
+        <button id="btn">NOT YET</button>
       </section>
 
       <script>
