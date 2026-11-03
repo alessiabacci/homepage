@@ -64,7 +64,7 @@
             lastMovement = performance.now();
         });
     function animate () {
-        if (performance.now() - lastMovement > 150) {
+        if (performance.now() - lastMovement > 100) {
             targetChaos=minChaos;
         }
         const smoothing = targetChaos > currentChaos ? 0.2 : 0.03;
