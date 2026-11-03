@@ -88,14 +88,6 @@
             effect.setOptions({chaos: 5.5});
             console.log("Mouse fuori il pulsante:", effect.options.chaos);
         });
-        function animate () {
-            currentChaos += (targetChaos - currentChaos)*0.05;
-        if (Math.abs(currentChaos-targetChaos)>0.001) {
-            effect.setOptions({chaos:currentChaos});
-        }
-        requestAnimationFrame(animate);
-        }
-        animate();
         </script>
     </body>
   </head>
